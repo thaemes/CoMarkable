@@ -12,6 +12,8 @@ Requires installing python3 on the tablet for example via entware.
 ## To do
 
 - [ ] Include sender information in stroke events to prevent infinite-loop stroke copying
+OR
+- [ ] Create second Wacom device to prevent infinite-loop and glitches
 - [ ] RM2 support
 - [ ] Write server program to support >2 devices and ease set up
 
