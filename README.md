@@ -1,7 +1,7 @@
 # CoMarkable
 POC / WIP for ReMarkable tablets work with multiple tablets on one document/illustration. It reproduces penstrokes from device A on device B and vice versa. 
 
-**Currently based on [LinusCDE - rmWacomToMouse](https://github.com/LinusCDE/rmWacomToMouse)
+**Largely based on [LinusCDE - rmWacomToMouse](https://github.com/LinusCDE/rmWacomToMouse)**
 
 ## State 
 
