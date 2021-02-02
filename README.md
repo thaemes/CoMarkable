@@ -1,6 +1,6 @@
+# CoMarkable
 ![](2021-02-02-20-53-15.png)
 
-# CoMarkable
 POC / WIP for ReMarkable tablets to work with multiple tablets on one document/illustration in real time. It reproduces penstrokes from device A on device B and vice versa. 
 
 **Largely based on [LinusCDE - rmWacomToMouse](https://github.com/LinusCDE/rmWacomToMouse)**
