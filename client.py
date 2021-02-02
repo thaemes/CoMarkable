@@ -10,7 +10,7 @@ import socket
 import struct
 
 # ----------
-# Config:
+
 
 ONLY_DEBUG=False  # Only show data. Don't move mouse
 
