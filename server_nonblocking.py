@@ -47,10 +47,8 @@ try:
 				#if we have data from the pen, read it
 				if wacomEvents in ready_to_read:
 					local_pen_data = wacomEvents.read(16)
-					#try to only forward "useful" events
-
-					print(local_pen_data)
-					#and if we can send it, send it
+					
+					#doesn't work yet, BUT might be because the client is in blocking mode?
 					#if server in ready_to_write:
 					client.send(local_pen_data) 
 finally:
