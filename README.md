@@ -13,6 +13,7 @@ Requires installing python3 on the tablet for example via entware.
 
 ## To do
 
+- [ ] Buffer incoming events, only send them to Wacom device once there is no activity on the local side (local pen action)
 - [ ] Do not send pen hover events
 - [ ] Include sender information in stroke events to prevent infinite-loop stroke copying
 OR
