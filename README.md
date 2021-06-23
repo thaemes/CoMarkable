@@ -7,7 +7,7 @@ POC / WIP for ReMarkable tablets to work with multiple tablets on one document/i
 
 ## State 
 
-Hacky and shaky. Currently it works uni-directionally; it copies the strokes from one tablet to another. The two tablets talk to each other directly, but a server in should be made, especially if we want to support more than two devices in the future. 
+Hacky and shaky. Currently it works uni-directionally; it copies the strokes from one tablet to another. The two tablets talk to each other directly, but a server in between should be made, especially if we want to support more than two devices in the future. 
 
 Requires installing python3 on the tablet for example via entware.
 
