@@ -28,7 +28,7 @@ receive_queue = queue.Queue()
 
 try:
 	print('Waiting for client...')
-	with open('/dev/input/event0', 'rb') as digitizer:
+	with open('/dev/input/event0', 'rb+', buffering=0) as digitizer:
 		inputs.append(digitizer)
 		while True:
 
@@ -49,7 +49,14 @@ try:
 				#we can read something from the client
 				elif isinstance(obj,socket.socket):
 					#todo: write this data we are receiving to digitizer
-					print('received remote data (unhandled)')
+					received_strokes = obj.recv(16)
+					if not len(received_strokes):
+						print("Connection closed by the server.")
+						#TODO: instead of quitting we can just go back in listening mode
+						#but I don't know how
+						sys.exit()
+					digitizer.write(received_strokes)
+					
 				#we can read from our pen and add it to the send buffer
 				elif obj is digitizer:
 					local_pen_data = digitizer.read(16)
