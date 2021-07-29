@@ -12,6 +12,8 @@ import struct
 import select
 import pdb
 import queue
+from time import sleep
+import sys
 
 EV_ABS = 3
 
@@ -23,18 +25,17 @@ server.setblocking(False)
 inputs = [server]
 outputs = []
 send_queue = queue.Queue()
-receive_queue = queue.Queue()
 
+remote_data_written = 0
 
 try:
 	print('Waiting for client...')
 	with open('/dev/input/event0', 'rb+', buffering=0) as digitizer:
 		inputs.append(digitizer)
 		while True:
-
 			ready_to_read, ready_to_write, in_error = \
 					   select.select(
-						  inputs, #socket to read from
+						  inputs,
 						  outputs,
 						  [],
 						  60)
@@ -48,31 +49,34 @@ try:
 					outputs.append(connection)
 				#we can read something from the client
 				elif isinstance(obj,socket.socket):
-					#todo: write this data we are receiving to digitizer
 					received_strokes = obj.recv(16)
 					if not len(received_strokes):
-						print("Connection closed by the server.")
+						print("Connection closed by the client.")
 						#TODO: instead of quitting we can just go back in listening mode
 						#but I don't know how
 						sys.exit()
-					digitizer.write(received_strokes)
+					try:
+						digitizer.write(received_strokes)
+					except OSError:
+						pass
+					remote_data_written += 1
 					
 				#we can read from our pen and add it to the send buffer
 				elif obj is digitizer:
 					local_pen_data = digitizer.read(16)
-					send_queue.put(local_pen_data)
+					if remote_data_written > 0:
+						remote_data_written -= 1
+					else:
+						send_queue.put(local_pen_data)
+
 
 			for obj in ready_to_write:
 				#we can send data
 				if isinstance(obj,socket.socket):
-					while not send_queue.empty():
+					if not send_queue.empty():
 						pen_data = send_queue.get_nowait()
 						obj.send(pen_data)
-				#we can write data to the digitizer
-				elif obj is digitizer:
-					while not receive_queue.empty():
-						pen_data = send_queue.get_nowait()
-						#write pen data to the digitizer
+
 					
 			for obj in in_error:
 				print(f"Error status with {obj}")
